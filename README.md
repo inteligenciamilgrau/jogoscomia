@@ -8,7 +8,7 @@ independentes publicados no GitHub Pages.
 
 | Jogo | Criação | Origem | Jogar |
 |---|---|---|---|
-| Pororoca Rush | Claude Opus 5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/pororocarush/) |
+| Pororoca Rush | Claude Opus 5 + música do Suno 4.5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/pororocarush/) |
 | Jogo do Carrinho | Claude Fable 5 | Local | [Abrir jogo](jogos/carrinho_fable_5.html) |
 | Guitarrada Hero | Claude Opus 5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/guitarradahero/) |
 | Corrida de Moedas | GPT Codex 5.5 | Local | [Abrir jogo](jogos/carrinho_gpt_codex_5_5.html) |
