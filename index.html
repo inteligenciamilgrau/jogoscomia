@@ -256,7 +256,14 @@
   .section-title .line{
     width:60px;height:3px;border-radius:3px;background:var(--gradient-hero);margin-top:12px;
   }
-  .filter-tags{display:flex;gap:8px;flex-wrap:wrap}
+  .filter-controls{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+  .filter-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .model-filter{display:flex;align-items:center;gap:10px;color:var(--txt-secondary);font-size:13px;font-weight:600}
+  .model-filter select{
+    min-width:210px;background:var(--bg-elevated);color:var(--txt);border:1px solid var(--borda);
+    padding:8px 34px 8px 12px;border-radius:8px;font:inherit;cursor:pointer;outline:none;
+  }
+  .model-filter select:hover,.model-filter select:focus{border-color:var(--destaque)}
   .tag{
     background:var(--bg-elevated);color:var(--txt-secondary);border:1px solid var(--borda);
     padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;
@@ -264,6 +271,11 @@
   }
   .tag:hover,.tag.active{border-color:var(--destaque);color:var(--destaque);background:var(--destaque-glow)}
   .card[hidden]{display:none}
+  .filter-empty{
+    grid-column:1/-1;text-align:center;padding:48px 24px;border:1px dashed var(--borda-hover);
+    border-radius:16px;color:var(--txt-secondary);background:var(--bg-elevated);
+  }
+  .filter-empty[hidden]{display:none}
 
   /* ===== Grade completa de jogos ===== */
   .grade{
@@ -472,6 +484,10 @@
     .hero-grade{grid-template-columns:1fr}
     .stats{gap:24px}
     .section-header{flex-direction:column;align-items:flex-start}
+    .filter-controls{align-items:flex-start;width:100%}
+    .filter-tags{justify-content:flex-start}
+    .model-filter{width:100%;justify-content:space-between}
+    .model-filter select{min-width:0;max-width:70%}
     .footer-top{flex-direction:column}
   }
 </style>
@@ -556,14 +572,22 @@
         <p>Jogos hospedados no catálogo e projetos publicados de forma independente</p>
         <div class="line"></div>
       </div>
-      <div class="filter-tags">
-        <button type="button" class="tag active" aria-pressed="true">Todos</button>
-        <button type="button" class="tag" aria-pressed="false">3D</button>
-        <button type="button" class="tag" aria-pressed="false">2D</button>
-        <button type="button" class="tag" aria-pressed="false">Esportes</button>
-        <button type="button" class="tag" aria-pressed="false">Corrida</button>
-        <button type="button" class="tag" aria-pressed="false">Música</button>
-        <button type="button" class="tag" aria-pressed="false">Aventura</button>
+      <div class="filter-controls">
+        <label class="model-filter" for="model-filter">
+          <span>Modelo</span>
+          <select id="model-filter">
+            <option value="todos">Todos os modelos</option>
+          </select>
+        </label>
+        <div class="filter-tags">
+          <button type="button" class="tag active" aria-pressed="true">Todos</button>
+          <button type="button" class="tag" aria-pressed="false">3D</button>
+          <button type="button" class="tag" aria-pressed="false">2D</button>
+          <button type="button" class="tag" aria-pressed="false">Esportes</button>
+          <button type="button" class="tag" aria-pressed="false">Corrida</button>
+          <button type="button" class="tag" aria-pressed="false">Música</button>
+          <button type="button" class="tag" aria-pressed="false">Aventura</button>
+        </div>
       </div>
     </div>
     <div class="grade" id="grade"></div>
@@ -691,6 +715,7 @@ const GAMES = [
     descricao: 'Uma aventura criada no Claude Fable 5, com imagens do GPT Image 2, em busca da lendária AGI Sagrada.',
     categoria: 'Aventura 2D',
     autor: 'Claude Fable 5',
+    modelosExtras: ['GPT Image 2'],
     sigla: 'BS',
     corAvatar: 'linear-gradient(135deg,#eab308,#16a34a)',
     data: 'GitHub Pages',
@@ -771,6 +796,7 @@ const VAGAS_POR_LINHA = 3;
 
 /* escape de HTML: os campos do GAMES viram texto, nunca markup (anti-XSS em PRs) */
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalizar = valor => String(valor).trim().toLocaleLowerCase('pt-BR');
 const thumbHtml = g => g.capa
   ? `<img src="${esc(g.capa)}" alt="Capa de ${esc(g.titulo)}" loading="lazy">`
   : `<div class="thumb-art" style="--thumb-bg:${esc(g.corCapa)}"><span aria-hidden="true">${esc(g.icone)}</span></div>`;
@@ -830,7 +856,8 @@ for (const g of GAMES) {
   const a = document.createElement('a');
   a.className = 'card reveal';
   a.href = g.url;
-  a.dataset.filtros = [g.categoria,...g.tags].map(valor => valor.toLocaleLowerCase('pt-BR')).join('|');
+  a.dataset.filtros = [g.categoria,...g.tags].map(normalizar).join('|');
+  a.dataset.modelos = [g.autor,...(g.modelosExtras || [])].map(normalizar).join('|');
   if (g.externo) {
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
@@ -886,6 +913,14 @@ for (let i = 0; i < faltam; i++) {
   grade.appendChild(d);
 }
 
+const filterEmpty = document.createElement('div');
+filterEmpty.className = 'filter-empty';
+filterEmpty.setAttribute('role','status');
+filterEmpty.setAttribute('aria-live','polite');
+filterEmpty.textContent = 'Nenhum jogo combina com esses filtros.';
+filterEmpty.hidden = true;
+grade.appendChild(filterEmpty);
+
 /* Header scroll */
 const header = document.getElementById('header');
 window.addEventListener('scroll',()=>{
@@ -921,24 +956,51 @@ const observer = new IntersectionObserver((entries)=>{
 
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-/* Filtra a biblioteca por categoria ou dimensão */
+/* Monta o seletor de modelos e combina os dois tipos de filtro */
+const modelFilter = document.getElementById('model-filter');
+const modelos = [...new Set(GAMES.flatMap(g=>[g.autor,...(g.modelosExtras || [])]))]
+  .sort((a,b)=>a.localeCompare(b,'pt-BR'));
+for (const modelo of modelos) {
+  const option = document.createElement('option');
+  option.value = modelo;
+  option.textContent = modelo;
+  modelFilter.appendChild(option);
+}
+
+let filtroCategoriaAtivo = 'todos';
+let filtroModeloAtivo = 'todos';
+function aplicarFiltros(){
+  let encontrados = 0;
+  gameCards.forEach(card=>{
+    const correspondeCategoria = filtroCategoriaAtivo === 'todos' ||
+      card.dataset.filtros.split('|').some(valor=>valor.includes(filtroCategoriaAtivo));
+    const correspondeModelo = filtroModeloAtivo === 'todos' ||
+      card.dataset.modelos.split('|').includes(filtroModeloAtivo);
+    card.hidden = !(correspondeCategoria && correspondeModelo);
+    if (!card.hidden) encontrados++;
+  });
+  grade.querySelectorAll('.embreve').forEach(card=>{
+    card.hidden = filtroCategoriaAtivo !== 'todos' || filtroModeloAtivo !== 'todos';
+  });
+  filterEmpty.hidden = encontrados > 0;
+}
+
 const filterButtons = document.querySelectorAll('.tag');
 filterButtons.forEach(button=>{
   button.addEventListener('click',()=>{
-    const filtro = button.textContent.trim().toLocaleLowerCase('pt-BR');
+    filtroCategoriaAtivo = normalizar(button.textContent);
     filterButtons.forEach(item=>{
       const ativo = item === button;
       item.classList.toggle('active',ativo);
       item.setAttribute('aria-pressed',String(ativo));
     });
-    gameCards.forEach(card=>{
-      const corresponde = filtro === 'todos' || card.dataset.filtros.split('|').some(valor=>valor.includes(filtro));
-      card.hidden = !corresponde;
-    });
-    grade.querySelectorAll('.embreve').forEach(card=>{
-      card.hidden = filtro !== 'todos';
-    });
+    aplicarFiltros();
   });
+});
+
+modelFilter.addEventListener('change',()=>{
+  filtroModeloAtivo = normalizar(modelFilter.value);
+  aplicarFiltros();
 });
 </script>
 </body>

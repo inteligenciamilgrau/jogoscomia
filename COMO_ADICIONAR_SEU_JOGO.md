@@ -15,6 +15,7 @@ Confirme que a URL final usa HTTPS, abre sem autenticação e termina com `/`. D
   descricao: 'Uma frase curta apresentando o jogo.',
   categoria: 'Aventura 2D',
   autor: 'Inteligência Mil Grau',
+  modelosExtras: ['GPT Image 2'], // opcional: outros modelos usados no projeto
   sigla: 'NJ',
   corAvatar: 'linear-gradient(135deg,#7c3aed,#2563eb)',
   data: 'GitHub Pages',
@@ -59,6 +60,7 @@ Entradas locais abrem na mesma aba e usam a imagem informada em `capa`.
 | `descricao` | Resumo curto do projeto |
 | `categoria` | Tipo principal do jogo |
 | `autor` | Canal, pessoa ou modelo de IA responsável pelo jogo |
+| `modelosExtras` | Outros modelos que também devem aparecer no filtro (opcional) |
 | `sigla` | Duas ou três letras para o avatar |
 | `corAvatar` | Gradiente CSS do avatar |
 | `data` | Data ou origem exibida no card |
