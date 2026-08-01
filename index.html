@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>Inteligência Mil Grau — Jogos Criados por IA</title>
+<title>Jogos com IA — Inteligência Mil Grau</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
@@ -260,9 +260,10 @@
   .tag{
     background:var(--bg-elevated);color:var(--txt-secondary);border:1px solid var(--borda);
     padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;
-    transition:all .2s;
+    transition:all .2s;font-family:var(--font-body);
   }
   .tag:hover,.tag.active{border-color:var(--destaque);color:var(--destaque);background:var(--destaque-glow)}
+  .card[hidden]{display:none}
 
   /* ===== Grade completa de jogos ===== */
   .grade{
@@ -295,6 +296,24 @@
   }
   .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
   .card:hover .thumb img{transform:scale(1.08)}
+  .thumb-art{
+    width:100%;height:100%;display:grid;place-items:center;overflow:hidden;
+    background:var(--thumb-bg);position:relative;
+  }
+  .thumb-art::before{
+    content:'';position:absolute;inset:-35%;
+    background:
+      radial-gradient(circle at 30% 30%,rgba(255,255,255,.28),transparent 24%),
+      repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 2px,transparent 2px 18px);
+    transform:rotate(-8deg);transition:transform .5s ease;
+  }
+  .thumb-art span{
+    position:relative;font-size:clamp(4rem,8vw,7rem);line-height:1;
+    filter:drop-shadow(0 12px 16px rgba(0,0,0,.35));
+    transition:transform .5s cubic-bezier(.4,0,.2,1);
+  }
+  .card:hover .thumb-art::before{transform:rotate(-8deg) scale(1.08)}
+  .card:hover .thumb-art span{transform:scale(1.1) rotate(-3deg)}
   .thumb-overlay{
     position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,7,10,.8) 0%,transparent 50%);
     opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:16px;
@@ -489,15 +508,15 @@
     <div class="hero-text reveal">
       <div class="hero-badge">
         <span class="pulse"></span>
-        Desafio: Carrinho vs Múltiplas IAs
+        Jogos locais + GitHub Pages
       </div>
       <h2>
-        O mesmo desafio.<br>
-        <span class="grad">Diferentes mentes artificiais.</span>
+        Jogos feitos com IA.<br>
+        <span class="grad">Todos em um só lugar.</span>
       </h2>
       <p>
-        Cada jogo aqui foi criado por um modelo de IA diferente. 
-        O mesmo prompt, a mesma ideia — resultados surpreendentemente únicos.
+        Uma coleção de experiências criadas com inteligência artificial:
+        jogos hospedados aqui e projetos independentes, todos prontos para jogar no navegador.
       </p>
       <div class="hero-btns">
         <a href="#jogos" class="btn-cta">🎮 Explorar Jogos</a>
@@ -509,8 +528,8 @@
           <div class="stat-label">Jogos</div>
         </div>
         <div class="stat">
-          <div class="stat-num" id="stat-ias">0</div>
-          <div class="stat-label">IAs</div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Jogáveis</div>
         </div>
         <div class="stat">
           <div class="stat-num">∞</div>
@@ -534,15 +553,17 @@
     <div class="section-header reveal">
       <div class="section-title">
         <h3>🎮 Biblioteca de Jogos</h3>
-        <p>Cada card é uma inteligência artificial diferente tentando o mesmo desafio</p>
+        <p>Jogos hospedados no catálogo e projetos publicados de forma independente</p>
         <div class="line"></div>
       </div>
       <div class="filter-tags">
-        <span class="tag active">Todos</span>
-        <span class="tag">3D</span>
-        <span class="tag">2D</span>
-        <span class="tag">Claude</span>
-        <span class="tag">GPT</span>
+        <button type="button" class="tag active" aria-pressed="true">Todos</button>
+        <button type="button" class="tag" aria-pressed="false">3D</button>
+        <button type="button" class="tag" aria-pressed="false">2D</button>
+        <button type="button" class="tag" aria-pressed="false">Esportes</button>
+        <button type="button" class="tag" aria-pressed="false">Corrida</button>
+        <button type="button" class="tag" aria-pressed="false">Música</button>
+        <button type="button" class="tag" aria-pressed="false">Aventura</button>
       </div>
     </div>
     <div class="grade" id="grade"></div>
@@ -555,15 +576,16 @@
     <h3>O que é o <span class="grad" style="background:var(--gradient-hero);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Inteligência Mil Grau?</span></h3>
     <p>
       É um canal do YouTube onde exploramos o potencial das IAs de forma divertida e criativa.
-      Aqui, desafiamos diferentes modelos de inteligência artificial a criarem o mesmo jogo a partir de um único prompt.
-      O resultado? Uma galeria de experiências únicas que mostram como cada IA "pensa" e cria de forma diferente.
+      Aqui, usamos inteligência artificial para transformar ideias em jogos e experiências interativas.
+      O resultado é uma galeria que combina jogos do próprio repositório com projetos independentes,
+      cada um com seu universo e pronto para jogar online.
     </p>
     <p style="font-size:14px;color:var(--txt-muted)">
-      Quer adicionar o seu jogo? É super fácil! Cada jogo é um arquivo HTML independente.
+      Alguns jogos vivem neste repositório; outros são carregados a partir de seus próprios GitHub Pages.
     </p>
     <div class="about-links">
       <a href="https://youtube.com/@inteligenciamilgrau" target="_blank" rel="noopener noreferrer">▶ YouTube</a>
-      <a href="https://github.com/inteligenciamilgrau" target="_blank" rel="noopener noreferrer">⭐ GitHub</a>
+      <a href="https://github.com/inteligenciamilgrau/jogoscomia" target="_blank" rel="noopener noreferrer">⭐ Repositório no GitHub</a>
     </div>
   </div>
 </section>
@@ -585,87 +607,163 @@
         <div class="footer-links-col">
           <h5>Redes</h5>
           <a href="https://youtube.com/@inteligenciamilgrau" target="_blank" rel="noopener noreferrer">YouTube</a>
-          <a href="https://github.com/inteligenciamilgrau" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://github.com/inteligenciamilgrau/jogoscomia" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://instagram.com/inteligenciamilgrau" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
         <div class="footer-links-col">
           <h5>Projeto</h5>
+          <a href="https://github.com/inteligenciamilgrau/jogoscomia" target="_blank" rel="noopener noreferrer">Código-fonte</a>
+          <a href="COMO_ADICIONAR_SEU_JOGO.md">Adicionar um jogo</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Inteligência Mil Grau. Feito com <span class="love">♥</span> e muita IA.</p>
-      <p>Cada jogo é um arquivo HTML independente criado por um modelo de IA.</p>
+      <p>Jogos locais e externos reunidos em um catálogo aberto.</p>
     </div>
   </div>
 </footer>
 
 <script>
 /* =====================================================================
-   LISTA DE JOGOS — para adicionar o seu, acrescente um objeto aqui.
-   Padrão: jogos/carrinho_<modelo>.html + capas/carrinho_<modelo>.png
-   (capa 1280x720). Detalhes no COMO_ADICIONAR_SEU_JOGO.md
+   LISTA DE JOGOS — a URL pode ser local ou apontar para o GitHub Pages.
+   Jogos locais usam capa; externos usam arte gráfica. Veja COMO_ADICIONAR_SEU_JOGO.md
    ===================================================================== */
 const GAMES = [
   {
-    arquivo: 'jogos/carrinho_fable_5.html',
+    url: 'https://inteligenciamilgrau.github.io/pororocarush/',
+    capa: 'capas/pororoca_rush.PNG',
+    titulo: 'Pororoca Rush',
+    descricao: 'Entre no ritmo da correnteza em uma experiência de corrida criada com IA e publicada para jogar direto no navegador.',
+    categoria: 'Esportes 3D',
+    autor: 'Claude Opus 5',
+    sigla: 'PR',
+    corAvatar: 'linear-gradient(135deg,#0891b2,#2563eb)',
+    data: 'GitHub Pages',
+    tags: ['Esportes','3D','Arcade','Web'],
+    selo: 'Online',
+    externo: true
+  },
+  {
+    url: 'jogos/carrinho_fable_5.html',
     capa: 'capas/carrinho_fable_5.png',
     titulo: 'Jogo do Carrinho',
     descricao: 'Um jogo 3D completo onde você compete contra a IA para coletar moedas. Com A*, splines, leque adaptativo e voo livre.',
-    modelo: 'Claude Fable 5',
+    categoria: 'Corrida 3D',
+    autor: 'Claude Fable 5',
     sigla: 'F5',
     corAvatar: 'linear-gradient(135deg,#d97706,#7c3aed)',
     data: 'junho de 2026',
     tags: ['3D','A*','Splines','Leque Adaptativo'],
-    selo: '3D'
+    selo: 'Local'
   },
   {
-    arquivo: 'jogos/carrinho_gpt_codex_5_5.html',
+    url: 'https://inteligenciamilgrau.github.io/guitarradahero/',
+    capa: 'capas/guitarrada_hero.PNG',
+    titulo: 'Guitarrada Hero',
+    descricao: 'Uma experiência musical inspirada na guitarrada para testar ritmo e precisão direto no navegador.',
+    categoria: 'Música 3D',
+    autor: 'Claude Opus 5',
+    sigla: 'GH',
+    corAvatar: 'linear-gradient(135deg,#f97316,#db2777)',
+    data: 'GitHub Pages',
+    tags: ['Música','3D','Ritmo','Web'],
+    selo: 'Online',
+    externo: true
+  },
+  {
+    url: 'jogos/carrinho_gpt_codex_5_5.html',
     capa: 'capas/carrinho_gpt_codex_5_5.png',
     titulo: 'Corrida de Moedas',
     descricao: 'Dispute 10 moedas com uma IA que planeja os desvios com antecedência. Pista em anel, trem cruzando o caminho e velocímetro analógico de verdade.',
-    modelo: 'GPT Codex 5.5',
+    categoria: 'Corrida 3D',
+    autor: 'GPT Codex 5.5',
     sigla: 'C55',
     corAvatar: 'linear-gradient(135deg,#10a37f,#065f46)',
     data: 'abril de 2026',
     tags: ['3D','IA Preditiva','Trem','Gauge.js'],
-    selo: '3D'
+    selo: 'Local'
   },
   {
-    arquivo: 'jogos/carrinho_gemini_3_5_flash.html',
+    url: 'https://inteligenciamilgrau.github.io/agisagrada/',
+    capa: 'capas/agi_sagrada.PNG',
+    titulo: 'Bob em Busca da AGI Sagrada',
+    descricao: 'Uma aventura criada no Claude Fable 5, com imagens do GPT Image 2, em busca da lendária AGI Sagrada.',
+    categoria: 'Aventura 2D',
+    autor: 'Claude Fable 5',
+    sigla: 'BS',
+    corAvatar: 'linear-gradient(135deg,#eab308,#16a34a)',
+    data: 'GitHub Pages',
+    tags: ['Aventura','2D','GPT Image 2','Exploração'],
+    selo: 'Online',
+    externo: true
+  },
+  {
+    url: 'jogos/carrinho_gemini_3_5_flash.html',
     capa: 'capas/carrinho_gemini_3_5_flash.png',
     titulo: 'CyberSpeed 3D — Corrida Retro-Futurista',
     descricao: 'Corrida neon noturna em um mundo cyberpunk: colete 10 moedas antes da IA desviando do trem em rota circular. HUD glassmorphism e trilha sonora procedural.',
-    modelo: 'Gemini 3.5 Flash',
+    categoria: 'Corrida 3D',
+    autor: 'Gemini 3.5 Flash',
     sigla: 'G35',
     corAvatar: 'linear-gradient(135deg,#4285f4,#9b72cb)',
     data: 'maio de 2026',
     tags: ['3D','Neon','Trem','Áudio Procedural'],
-    selo: '3D'
+    selo: 'Local'
   },
   {
-    arquivo: 'jogos/carrinho_claude_opus_4_8.html',
+    url: 'https://inteligenciamilgrau.github.io/agisagrada3d/',
+    capa: 'capas/agi_sagrada_3d.PNG',
+    titulo: 'Bob em Busca da AGI Sagrada 3D',
+    descricao: 'A busca de Bob ganha uma nova dimensão nesta versão 3D da aventura pela AGI Sagrada.',
+    categoria: 'Aventura 3D',
+    autor: 'Claude Opus 5',
+    sigla: 'B3D',
+    corAvatar: 'linear-gradient(135deg,#8b5cf6,#2563eb)',
+    data: 'GitHub Pages',
+    tags: ['Aventura','3D','Exploração'],
+    selo: 'Online',
+    externo: true
+  },
+  {
+    url: 'jogos/carrinho_claude_opus_4_8.html',
     capa: 'capas/carrinho_claude_opus_4_8.png',
     titulo: 'Simulador de Carro 3D',
     descricao: 'Corrida de moedas contra uma IA guiada por campos de força. Desvie das árvores, das montanhas e do trem — bater explode o carro e volta ao início!',
-    modelo: 'Claude Opus 4.8',
+    categoria: 'Corrida 3D',
+    autor: 'Claude Opus 4.8',
     sigla: 'O48',
     corAvatar: 'linear-gradient(135deg,#d97706,#dc2626)',
     data: 'maio de 2026',
     tags: ['3D','Campos de Força','Trem','Web Audio'],
-    selo: '3D'
+    selo: 'Local'
   },
   {
-    arquivo: 'jogos/carrinho_kimi_k2_6.html',
+    url: 'https://inteligenciamilgrau.github.io/superkart/',
+    capa: 'capas/super_kart.PNG',
+    titulo: 'Super Kart Rush',
+    descricao: 'Acelere em uma corrida de kart criada com IA e dispute a pista na versão online do projeto.',
+    categoria: 'Corrida 3D',
+    autor: 'Claude Opus 5',
+    sigla: 'SK',
+    corAvatar: 'linear-gradient(135deg,#ef4444,#f59e0b)',
+    data: 'GitHub Pages',
+    tags: ['Corrida','3D','Kart'],
+    selo: 'Online',
+    externo: true
+  },
+  {
+    url: 'jogos/carrinho_kimi_k2_6.html',
     capa: 'capas/carrinho_kimi_k2_6.png',
     titulo: 'Race Coins 3D',
     descricao: 'Acelere por uma estrada reta cercada de floresta coletando moedas antes da IA. O trem corta a pista em círculo — atravesse os trilhos na hora certa!',
-    modelo: 'Kimi K2.6',
+    categoria: 'Corrida 3D',
+    autor: 'Kimi K2.6',
     sigla: 'K26',
     corAvatar: 'linear-gradient(135deg,#111827,#06b6d4)',
     data: 'junho de 2026',
     tags: ['3D','Trem','Velocímetro SVG','Floresta'],
-    selo: '3D'
+    selo: 'Local'
   },
 ];
 
@@ -673,17 +771,25 @@ const VAGAS_POR_LINHA = 3;
 
 /* escape de HTML: os campos do GAMES viram texto, nunca markup (anti-XSS em PRs) */
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const thumbHtml = g => g.capa
+  ? `<img src="${esc(g.capa)}" alt="Capa de ${esc(g.titulo)}" loading="lazy">`
+  : `<div class="thumb-art" style="--thumb-bg:${esc(g.corCapa)}"><span aria-hidden="true">${esc(g.icone)}</span></div>`;
 
 /* Renderiza jogos no hero (mini cards) */
 const heroGrade = document.getElementById('hero-grade');
 for (const g of GAMES.slice(0,4)) {
   const a = document.createElement('a');
   a.className = 'card';
-  a.href = g.arquivo;
+  a.href = g.url;
+  if (g.externo) {
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+  }
+  a.setAttribute('aria-label', `Jogar ${g.titulo}${g.externo ? ' (abre em nova aba)' : ''}`);
   a.innerHTML = `
     <div class="thumb">
-      <span class="thumb-modelo">${esc(g.modelo)}</span>
-      <img src="${esc(g.capa)}" alt="Capa de ${esc(g.titulo)}" loading="lazy">
+      <span class="thumb-modelo">${esc(g.categoria)}</span>
+      ${thumbHtml(g)}
       <span class="play-btn">▶</span>
       <span class="selo">${esc(g.selo)}</span>
     </div>
@@ -691,7 +797,7 @@ for (const g of GAMES.slice(0,4)) {
       <div class="card-titulo">${esc(g.titulo)}</div>
       <div class="card-meta">
         <span class="avatar" style="background:${esc(g.corAvatar)}">${esc(g.sigla)}</span>
-        <span class="modelo">${esc(g.modelo)}</span>
+        <span class="modelo">${esc(g.autor)}</span>
       </div>
     </div>`;
   heroGrade.appendChild(a);
@@ -718,15 +824,22 @@ for (let i = 0; i < heroFaltam && i < 4; i++) {
 
 /* Renderiza jogos na biblioteca completa */
 const grade = document.getElementById('grade');
+const gameCards = [];
 for (const g of GAMES) {
   const tagsHtml = g.tags.slice(0,3).map(t => `<span>${esc(t)}</span>`).join('');
   const a = document.createElement('a');
   a.className = 'card reveal';
-  a.href = g.arquivo;
+  a.href = g.url;
+  a.dataset.filtros = [g.categoria,...g.tags].map(valor => valor.toLocaleLowerCase('pt-BR')).join('|');
+  if (g.externo) {
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+  }
+  a.setAttribute('aria-label', `Jogar ${g.titulo}${g.externo ? ' (abre em nova aba)' : ''}`);
   a.innerHTML = `
     <div class="thumb">
-      <span class="thumb-modelo">${esc(g.modelo)}</span>
-      <img src="${esc(g.capa)}" alt="Capa de ${esc(g.titulo)}" loading="lazy">
+      <span class="thumb-modelo">${esc(g.categoria)}</span>
+      ${thumbHtml(g)}
       <div class="thumb-overlay">
         <div class="thumb-tags">${tagsHtml}</div>
       </div>
@@ -737,7 +850,7 @@ for (const g of GAMES) {
       <div class="card-header">
         <span class="avatar" style="background:${esc(g.corAvatar)}">${esc(g.sigla)}</span>
         <div class="card-meta">
-          <div class="modelo">${esc(g.modelo)}</div>
+          <div class="modelo">${esc(g.autor)}</div>
           <div class="data">${esc(g.data)}</div>
         </div>
       </div>
@@ -749,6 +862,7 @@ for (const g of GAMES) {
       <div class="card-arrow">→</div>
     </div>`;
   grade.appendChild(a);
+  gameCards.push(a);
 }
 
 /* Preenche vagas */
@@ -800,7 +914,6 @@ const observer = new IntersectionObserver((entries)=>{
       entry.target.classList.add('visible');
       if(entry.target.classList.contains('hero-text')){
         setTimeout(()=>animarNumero('stat-games',GAMES.length),400);
-        setTimeout(()=>animarNumero('stat-ias',new Set(GAMES.map(g=>g.modelo)).size),700);
       }
     }
   });
@@ -808,11 +921,23 @@ const observer = new IntersectionObserver((entries)=>{
 
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-/* Tags filter visual (sem funcionalidade real por enquanto) */
-document.querySelectorAll('.tag').forEach(tag=>{
-  tag.addEventListener('click',()=>{
-    document.querySelectorAll('.tag').forEach(t=>t.classList.remove('active'));
-    tag.classList.add('active');
+/* Filtra a biblioteca por categoria ou dimensão */
+const filterButtons = document.querySelectorAll('.tag');
+filterButtons.forEach(button=>{
+  button.addEventListener('click',()=>{
+    const filtro = button.textContent.trim().toLocaleLowerCase('pt-BR');
+    filterButtons.forEach(item=>{
+      const ativo = item === button;
+      item.classList.toggle('active',ativo);
+      item.setAttribute('aria-pressed',String(ativo));
+    });
+    gameCards.forEach(card=>{
+      const corresponde = filtro === 'todos' || card.dataset.filtros.split('|').some(valor=>valor.includes(filtro));
+      card.hidden = !corresponde;
+    });
+    grade.querySelectorAll('.embreve').forEach(card=>{
+      card.hidden = filtro !== 'todos';
+    });
   });
 });
 </script>

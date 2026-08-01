@@ -1,45 +1,43 @@
-# 🏎️ Garagem do Carrinho
+# 🎮 Jogos com IA
 
-**Um desafio, vários modelos de IA.** Cada modelo de IA cria a sua própria versão do
-jogo do carrinho 3D — em um único arquivo HTML — e a garagem exibe todas lado a lado,
-estilo YouTube. Abra, compare e jogue!
+Catálogo de jogos e experiências interativas criados com inteligência artificial pelo
+**Inteligência Mil Grau**. A vitrine combina jogos hospedados neste repositório com projetos
+independentes publicados no GitHub Pages.
 
-![Carrinho 3D do Claude Fable 5](capas/carrinho_fable_5.png)
+## Jogos disponíveis
 
-## 🎮 Como jogar
+| Jogo | Criação | Origem | Jogar |
+|---|---|---|---|
+| Pororoca Rush | Claude Opus 5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/pororocarush/) |
+| Jogo do Carrinho | Claude Fable 5 | Local | [Abrir jogo](jogos/carrinho_fable_5.html) |
+| Guitarrada Hero | Claude Opus 5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/guitarradahero/) |
+| Corrida de Moedas | GPT Codex 5.5 | Local | [Abrir jogo](jogos/carrinho_gpt_codex_5_5.html) |
+| Bob em Busca da AGI Sagrada | Claude Fable 5 + imagens do GPT Image 2 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/agisagrada/) |
+| CyberSpeed 3D | Gemini 3.5 Flash | Local | [Abrir jogo](jogos/carrinho_gemini_3_5_flash.html) |
+| Bob em Busca da AGI Sagrada 3D | Claude Opus 5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/agisagrada3d/) |
+| Simulador de Carro 3D | Claude Opus 4.8 | Local | [Abrir jogo](jogos/carrinho_claude_opus_4_8.html) |
+| Super Kart Rush | Claude Opus 5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/superkart/) |
+| Race Coins 3D | Kimi K2.6 | Local | [Abrir jogo](jogos/carrinho_kimi_k2_6.html) |
 
-Abra o **`index.html`** no navegador (duplo clique resolve — não precisa de servidor)
-e escolha um jogo na grade. Ou abra um jogo direto da pasta [`jogos/`](jogos/).
+## Como funciona
 
-## 🚗 Jogos na garagem
+O array `GAMES`, em `index.html`, aceita dois tipos de entrada:
 
-| Jogo | Modelo de IA | Data |
-|------|--------------|------|
-| [Carrinho 3D — Você × IA na caça às moedas](jogos/carrinho_fable_5.html) | Claude Fable 5 | junho de 2026 |
-| 🔜 em breve | — | — |
+- **Local:** usa um caminho em `jogos/` e uma imagem em `capas/`.
+- **Externa:** usa a URL pública do GitHub Pages e pode usar uma imagem da pasta `capas/`.
 
-## 📁 Estrutura
+Para testar o catálogo, abra `index.html` no navegador ou sirva a pasta com qualquer servidor
+HTTP estático.
 
-```
-.
-├── index.html                  # landing page com a grade de jogos
-├── COMO_ADICIONAR_SEU_JOGO.md  # guia de contribuição (feito para IAs!)
-├── jogos/                      # um HTML independente por jogo
-└── capas/                      # prints 1280×720 dos jogos
-```
+## Adicionar um jogo
 
-## 🤝 Como contribuir
+Consulte [COMO_ADICIONAR_SEU_JOGO.md](COMO_ADICIONAR_SEU_JOGO.md) para cadastrar um jogo
+local ou um projeto publicado no GitHub Pages.
 
-Este é um projeto aberto — e o público-alvo dos contribuidores são **modelos de IA**:
-cada um adiciona a sua versão do jogo seguindo o mesmo padrão, sem alterar as dos outros.
+## Repositório
 
-O passo a passo completo (nomes de arquivos, capa, registro na grade e fluxo de PR)
-está no **[COMO_ADICIONAR_SEU_JOGO.md](COMO_ADICIONAR_SEU_JOGO.md)**.
+[inteligenciamilgrau/jogoscomia](https://github.com/inteligenciamilgrau/jogoscomia)
 
-## 📜 Licença
+## Licença
 
-[MIT](LICENSE) — use, copie, remixe e divirta-se.
-
----
-
-*Garagem fundada pelo Claude Fable 5 em junho de 2026, dentro do Claude Code.*
+[MIT](LICENSE)
