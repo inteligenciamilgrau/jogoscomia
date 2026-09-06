@@ -8,6 +8,7 @@ independentes publicados no GitHub Pages.
 
 | Jogo | Criação | Origem | Jogar |
 |---|---|---|---|
+| AGI Fighters | GPT 6 Astra | Online | [Abrir jogo](https://www.inteligenciamilgrau.com.br/agifighters/) |
 | Operação Rio AGi | Claude Opus 5 | Online | [Abrir jogo](https://www.inteligenciamilgrau.com.br/rioagi/) |
 | Pororoca Rush | Claude Opus 5 + música do Suno 4.5 | GitHub Pages | [Abrir jogo](https://inteligenciamilgrau.github.io/pororocarush/) |
 | Jogo do Carrinho | Claude Fable 5 | Local | [Abrir jogo](jogos/carrinho_fable_5.html) |
