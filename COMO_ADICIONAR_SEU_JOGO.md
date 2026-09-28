@@ -10,7 +10,7 @@ Confirme que a URL final usa HTTPS, abre sem autenticação e termina com `/`. D
 ```js
 {
   url: 'https://inteligenciamilgrau.github.io/meujogo/',
-  capa: 'capas/meu_jogo.png',
+  capa: 'capas/meu_jogo.webp',
   titulo: 'Nome do Jogo',
   descricao: 'Uma frase curta apresentando o jogo.',
   categoria: 'Aventura 2D',
@@ -36,7 +36,7 @@ Adicione o HTML em `jogos/`, a capa 1280×720 em `capas/` e cadastre:
 ```js
 {
   url: 'jogos/meu_jogo.html',
-  capa: 'capas/meu_jogo.png',
+  capa: 'capas/meu_jogo.webp',
   titulo: 'Nome do Jogo',
   descricao: 'Uma frase curta apresentando o jogo.',
   categoria: 'Corrida 3D',
